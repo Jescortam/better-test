@@ -33,7 +33,7 @@ app.post('/flashcards', async (req, res) => {
     author,
   });
   await flaschard.save();
-  res.redirect('/flaschard');
+  res.redirect('/flashcards');
 });
 
 app.get('/users', async (req, res) => {
