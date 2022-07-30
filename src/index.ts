@@ -3,6 +3,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import User from './models/User';
 import IUser from './types/User';
+import Flashcard from './models/Flashcard';
+import IFlashcard from './types/Flashcard';
 
 const app: express.Application = express();
 
@@ -16,6 +18,22 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello');
+});
+
+app.get('/flashcards', async (req, res) => {
+  const flashcards: IFlashcard[] = await Flashcard.find({});
+  res.send(flashcards);
+});
+
+app.post('/flashcards', async (req, res) => {
+  const { body, answer, author } = req.body;
+  const flaschard = new Flashcard({
+    body,
+    answer,
+    author,
+  });
+  await flaschard.save();
+  res.redirect('/flaschard');
 });
 
 app.get('/users', async (req, res) => {
