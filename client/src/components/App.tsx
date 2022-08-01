@@ -1,67 +1,22 @@
-import React from 'react';
-import FormField from './FormField';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './Navbar';
+import Signup from './auth/Signup';
+import Login from './auth/Login';
+import FlashcardCreate from './flashcards/FlashcardCreate';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>SIGN UP</h1>
-      <form method="post" action="/auth/signup">
-        <FormField
-          label="Username"
-          id="login-username-input"
-          name="username"
-          required
-        />
-        <FormField
-          label="Password"
-          id="login-password-input"
-          name="password"
-          type="password"
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-      <h1>LOG IN</h1>
-      <form method="post" action="/auth/login">
-        <FormField
-          label="Username"
-          id="login-username-input"
-          name="username"
-          required
-        />
-        <FormField
-          label="Password"
-          id="login-password-input"
-          name="password"
-          type="password"
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-      <hr />
-      <form method="post" action="/flashcards">
-        <FormField
-          label="Body"
-          id="flashcard-body-input"
-          name="body"
-          required
-        />
-        <FormField
-          label="Answer"
-          id="flashcard-answer-input"
-          name="answer"
-          required
-        />
-        <FormField
-          label="Author"
-          id="flashcard-author-input"
-          name="author"
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/flashcards/new" element={<FlashcardCreate />} />
+        </Routes>
+      </main>
+    </>
   );
-}
+};
 
 export default App;
