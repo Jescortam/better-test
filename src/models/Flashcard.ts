@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
-import IFlashcard from '../types/Flashcard';
+import { Schema, model, Model } from 'mongoose';
+import Flashcard from '../types/Flashcard';
 
-const flashcardSchema: mongoose.Schema = new mongoose.Schema<IFlashcard>({
+const flashcardSchema = new Schema<Flashcard, Model<Flashcard>>({
   body: { required: true, type: String },
   answer: { required: true, type: String },
   author: { required: true, type: String },
 });
 
-export default mongoose.model<IFlashcard>('Flashcard', flashcardSchema);
+export default model<Flashcard>('Flashcard', flashcardSchema);
