@@ -4,20 +4,18 @@ interface FormFieldProps {
   label: string;
   name: string;
   type?: string;
-  required: boolean;
 }
 
 const FormField = ({
   label,
   name,
   type = 'text',
-  required,
 }: FormFieldProps): JSX.Element => {
   return (
     <div>
       <label>
         {label}
-        <input {...{ name, type, required }} />
+        <input {...{ name, type }} />
       </label>
     </div>
   );

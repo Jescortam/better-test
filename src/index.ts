@@ -20,18 +20,16 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 passport.use(User.createStrategy());
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/flashcards', flashcardRoutes);
-app.use('/users', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/flashcards', flashcardRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Hello');
+  res.status(200).send('Hello');
 });
 
 const PORT: number = 8000;

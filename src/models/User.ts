@@ -2,12 +2,16 @@ import {
   Schema,
   model,
   Document,
+  PassportLocalDocument,
   PassportLocalModel,
   PassportLocalSchema,
   Model,
 } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import User from '../types/User';
+
+interface User extends PassportLocalDocument {
+  username: string;
+}
 
 interface UserModelType extends PassportLocalModel<User> {}
 

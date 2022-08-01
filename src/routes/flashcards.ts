@@ -6,8 +6,9 @@ const router = express.Router();
 router
   .route('/')
   .get(async (req, res) => {
+    console.log(req.user);
     const flashcards = await Flashcard.find({});
-    res.send(flashcards);
+    res.status(200).redirect('/flashcards');
   })
   .post(async (req, res) => {
     const { body, answer, author } = req.body;
@@ -17,7 +18,7 @@ router
       author,
     });
     await flashcard.save();
-    res.redirect('/flashcards');
+    res.status(201).redirect('/flashcards');
   });
 
 export default router;

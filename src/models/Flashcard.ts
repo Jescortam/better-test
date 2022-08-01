@@ -1,5 +1,10 @@
 import { Schema, model, Model } from 'mongoose';
-import Flashcard from '../types/Flashcard';
+
+interface Flashcard {
+  body: string;
+  answer: string;
+  author: string;
+}
 
 const flashcardSchema = new Schema<Flashcard, Model<Flashcard>>({
   body: { required: true, type: String },

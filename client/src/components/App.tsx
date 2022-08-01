@@ -14,6 +14,9 @@ const App = () => {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/flashcards/new" element={<FlashcardCreate />} />
         </Routes>
+        <form action="/api/auth/logout" method="post">
+          <button>Log out</button>
+        </form>
       </main>
     </>
   );
