@@ -4,9 +4,10 @@ import passport from 'passport';
 import session from 'express-session';
 import { MongooseConnect } from './services/mongoose';
 import sessionConfig from './services/expressSession';
-import flashcardRoutes from './routes/flashcards';
-import userRoutes from './routes/users';
 import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
+import collectionRoutes from './routes/collections';
+import flashcardRoutes from './routes/flashcards';
 import User from './models/User';
 
 const app: express.Application = express();
@@ -24,9 +25,10 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/api/flashcards', flashcardRoutes);
-app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/collections', collectionRoutes);
+app.use('/api/collections/:collectionId/flashcards', flashcardRoutes);
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello');

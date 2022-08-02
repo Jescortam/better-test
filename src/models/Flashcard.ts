@@ -1,15 +1,24 @@
 import { Schema, model, Model } from 'mongoose';
+import { AnswerOptionsSchema, FlashcardSchema } from '../types';
 
-interface Flashcard {
-  body: string;
-  answer: string;
-  author: string;
-}
-
-const flashcardSchema = new Schema<Flashcard, Model<Flashcard>>({
-  body: { required: true, type: String },
-  answer: { required: true, type: String },
-  author: { required: true, type: String },
+const answerOptionsSchema = new Schema<AnswerOptionsSchema>({
+  content: { required: true, type: String },
+  isCorrect: { required: true, type: Boolean },
 });
 
-export default model<Flashcard>('Flashcard', flashcardSchema);
+const flashcardSchema = new Schema<FlashcardSchema, Model<FlashcardSchema>>({
+  question: { required: true, type: String },
+  answer: String,
+  answerOptions: [answerOptionsSchema],
+  image: String,
+  author: { required: true, type: Schema.Types.ObjectId, ref: 'User' },
+  collection: {
+    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  createdAt: { required: true, type: Date },
+  lastUpdatedAt: { required: true, type: Date },
+});
+
+export default model<FlashcardSchema>('Flashcard', flashcardSchema);
