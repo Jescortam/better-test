@@ -12,7 +12,9 @@ import User from './models/User';
 
 const app: express.Application = express();
 
-MongooseConnect().catch((err: unknown) => console.log(err));
+MongooseConnect().catch((err: unknown) =>
+  console.error('Connection error:', err)
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,6 +27,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/collections', collectionRoutes);
@@ -34,7 +41,7 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello');
 });
 
-const PORT: number = 8000;
+const PORT: number = process.env.PORT ? Number(process.env.PORT) : 8000;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
