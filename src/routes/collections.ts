@@ -1,29 +1,40 @@
 import express from 'express';
-import { validateId, isLoggedIn, isAuthor } from '../middleware';
+import {
+  validateCollectionId,
+  isLoggedIn,
+  validateBody,
+  isCollectionAuthor,
+} from '../middleware';
+import { collectionJoiSchema } from '../schemas';
+import catchAsync from '../utils/catchAsync';
 import collectionController from '../controllers/collections';
-import Collection from '../models/Collection';
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(collectionController.index)
-  .post(isLoggedIn, collectionController.create);
+  .get(catchAsync(collectionController.index))
+  .post(
+    isLoggedIn,
+    validateBody(collectionJoiSchema),
+    catchAsync(collectionController.create)
+  );
 
 router
   .route('/:id')
-  .get(validateId(Collection), collectionController.read)
+  .get(validateCollectionId, catchAsync(collectionController.read))
   .put(
-    validateId(Collection),
+    validateCollectionId,
     isLoggedIn,
-    isAuthor(Collection),
-    collectionController.update
+    isCollectionAuthor,
+    validateBody(collectionJoiSchema),
+    catchAsync(collectionController.update)
   )
   .delete(
-    validateId(Collection),
+    validateCollectionId,
     isLoggedIn,
-    isAuthor(Collection),
-    collectionController.destroy
+    isCollectionAuthor,
+    catchAsync(collectionController.destroy)
   );
 
 export default router;

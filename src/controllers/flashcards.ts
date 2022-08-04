@@ -8,9 +8,6 @@ const baseRoute = (collectionId: string): string => {
 
 const index = async (req: express.Request, res: express.Response) => {
   let flashcards = await Flashcard.find({});
-  if (!flashcards) {
-    flashcards = [];
-  }
   res.status(200).send(flashcards);
 };
 
@@ -32,17 +29,23 @@ const create = async (req: express.Request, res: express.Response) => {
     createdAt: new Date(),
     lastUpdatedAt: new Date(),
   });
+  await Collection.findByIdAndUpdate(
+    collectionId,
+    {
+      //@ts-ignore
+      $push: { flashcards: flashcard._id! },
+    },
+    { new: true }
+  );
   await flashcard.save();
+  req.flash('success', 'Flashcard successfully made');
   res.status(201).redirect(baseRoute(collectionId));
 };
 
 const read = async (req: express.Request, res: express.Response) => {
-  const { collectionId, id } = req.params as any;
+  const { id } = req.params as any;
   const flashcard = await Flashcard.findById(id);
-  if (flashcard) {
-    return res.status(200).send(flashcard);
-  }
-  res.status(400).redirect(baseRoute(collectionId));
+  res.status(200).send(flashcard);
 };
 
 const update = async (req: express.Request, res: express.Response) => {
@@ -59,26 +62,15 @@ const update = async (req: express.Request, res: express.Response) => {
     },
     { new: true }
   );
-  if (typeof flashcard === null) {
-    return res.status(400).redirect(baseRoute(collectionId));
-  }
   await flashcard!.save();
-  const collection = await Collection.findByIdAndUpdate(
-    collectionId,
-    {
-      $push: { flashcards: id },
-    },
-    { new: true }
-  );
-  if (!collection) {
-    return res.status(400).redirect(baseRoute(collectionId));
-  }
+  req.flash('success', 'Flashcard successfully updated');
   res.status(200).redirect(baseRoute(collectionId));
 };
 
 const destroy = async (req: express.Request, res: express.Response) => {
   const { collectionId, id } = req.params as any;
   await Flashcard.findByIdAndDelete(id);
+  req.flash('success', 'Flashcard successfully deleted');
   res.status(200).redirect(baseRoute(collectionId));
 };
 

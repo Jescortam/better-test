@@ -4,9 +4,6 @@ import User from '../models/User';
 
 const index = async (req: express.Request, res: express.Response) => {
   let collections = await Collection.find();
-  if (!collections) {
-    collections = [];
-  }
   res.status(200).send(collections);
 };
 
@@ -14,14 +11,11 @@ const create = async (req: express.Request, res: express.Response) => {
   const { name } = req.body;
   const collection = new Collection({
     name,
-    flashcards: null,
+    flashcards: [],
     author: req.user!._id,
     createdAt: new Date(),
     lastUpdatedAt: new Date(),
   });
-  if (!collection) {
-    return res.status(400).redirect('/collections');
-  }
   await collection.save();
   const { _id } = collection;
   const user = await User.findByIdAndUpdate(
@@ -30,19 +24,14 @@ const create = async (req: express.Request, res: express.Response) => {
     { $push: { ownCollections: collection._id } },
     { new: true }
   );
-  if (!user) {
-    return res.status(400).redirect('/collections');
-  }
+  req.flash('success', 'Collection successfully made');
   res.status(201).redirect(`/collections/${_id}`);
 };
 
 const read = async (req: express.Request, res: express.Response) => {
   const { id } = req.params;
   const collection = await Collection.findById(id);
-  if (collection) {
-    return res.status(200).send(collection);
-  }
-  res.status(400).redirect('/collections');
+  res.status(200).send(collection);
 };
 
 const update = async (req: express.Request, res: express.Response) => {
@@ -56,16 +45,15 @@ const update = async (req: express.Request, res: express.Response) => {
     },
     { new: true }
   );
-  if (collection) {
-    await collection.save();
-    return res.status(200).redirect(`/collections/${id}`);
-  }
-  res.status(400).redirect('/collections');
+  await collection!.save();
+  req.flash('success', 'Collection successfully updated');
+  res.status(200).redirect(`/collections/${id}`);
 };
 
 const destroy = async (req: express.Request, res: express.Response) => {
   const { id } = req.params;
   await Collection.findByIdAndDelete(id);
+  req.flash('success', 'Collection successfully deleted');
   res.status(200).redirect('/collections');
 };
 

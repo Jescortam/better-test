@@ -1,30 +1,48 @@
 import express from 'express';
-import { validateId, isLoggedIn, isAuthor } from '../middleware';
+import {
+  validateCollectionId,
+  validateFlashcardId,
+  isLoggedIn,
+  isCollectionAuthor,
+  isFlashcardAuthor,
+  validateBody,
+} from '../middleware';
+import { flashcardJoiSchema } from '../schemas';
+import catchAsync from '../utils/catchAsync';
 import flashcardController from '../controllers/flashcards';
-import Flashcard from '../models/Flashcard';
-import Collection from '../models/Collection';
 
 const router = express.Router({ mergeParams: true });
 
 router
   .route('/')
-  .get(flashcardController.index)
-  .post(isLoggedIn, isAuthor(Collection), flashcardController.create);
+  .get(validateCollectionId, catchAsync(flashcardController.index))
+  .post(
+    validateCollectionId,
+    isLoggedIn,
+    isCollectionAuthor,
+    validateBody(flashcardJoiSchema),
+    catchAsync(flashcardController.create)
+  );
 
 router
   .route('/:id')
-  .get(validateId(Flashcard), flashcardController.read)
+  .get(validateCollectionId, validateFlashcardId, flashcardController.read)
   .put(
-    validateId(Flashcard),
+    validateCollectionId,
+    validateFlashcardId,
     isLoggedIn,
-    isAuthor(Flashcard),
-    flashcardController.update
+    isCollectionAuthor,
+    isFlashcardAuthor,
+    validateBody(flashcardJoiSchema),
+    catchAsync(flashcardController.update)
   )
   .delete(
-    validateId(Flashcard),
+    validateCollectionId,
+    validateFlashcardId,
     isLoggedIn,
-    isAuthor(Flashcard),
-    flashcardController.destroy
+    isCollectionAuthor,
+    isFlashcardAuthor,
+    catchAsync(flashcardController.destroy)
   );
 
 export default router;
