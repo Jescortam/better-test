@@ -1,6 +1,7 @@
 import passportLocalMongoose from 'passport-local-mongoose';
 import { Schema, model, PassportLocalSchema } from 'mongoose';
 import { UserSchema, UserModelType } from '../types';
+import Collection from './Collection';
 
 const userSchema = new Schema<UserSchema, UserModelType>({
   username: { required: true, type: String },
@@ -15,6 +16,12 @@ const userSchema = new Schema<UserSchema, UserModelType>({
   },
   createdAt: { required: true, type: Date },
 }) as PassportLocalSchema<UserSchema, UserModelType>;
+
+userSchema.post('findOneAndDelete', async function (doc: UserSchema) {
+  if (doc) {
+    await Collection.deleteMany({ _id: { $in: doc.ownCollections } });
+  }
+});
 
 userSchema.plugin(passportLocalMongoose);
 
