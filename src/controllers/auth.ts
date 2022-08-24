@@ -27,9 +27,10 @@ const login = (req: express.Request, res: express.Response) => {
 };
 
 const logout = (req: express.Request, res: express.Response) => {
-  req.logout();
-  req.flash('success', 'Goodbye');
-  res.status(200).redirect('/');
+  req.logout(() => {
+    req.flash('success', 'Goodbye');
+    res.status(200).redirect('/');
+  });
 };
 
 export default { signup, login, logout };
