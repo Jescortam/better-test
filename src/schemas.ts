@@ -1,9 +1,5 @@
 import Joi from 'joi';
 
-export const collectionJoiSchema = Joi.object({
-  name: Joi.string().required().trim(),
-});
-
 export const flashcardJoiSchema = Joi.object({
   question: Joi.string().required().trim(),
   image: Joi.string().trim(),
@@ -15,6 +11,13 @@ export const flashcardJoiSchema = Joi.object({
     })
   ),
 }).or('image', 'answer', 'answerOptions');
+
+export const collectionJoiSchema = Joi.object({
+  title: Joi.string().required().trim(),
+  description: Joi.string().trim(),
+  flashcards: Joi.array().items(flashcardJoiSchema),
+  image: Joi.string(),
+});
 
 export const userJoiSchema = Joi.object({
   username: Joi.string().required().trim(),

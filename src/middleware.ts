@@ -54,7 +54,7 @@ export const isCollectionAuthor = async (
   const { id, collectionId } = req.params;
   const queryId = collectionId ? collectionId : id;
   const collection = await Collection.findById(queryId);
-  if (collection!.author !== req.user!._id) {
+  if (collection!.contributors.includes(req.user!._id)) {
     req.flash('failure', 'You must be the author of the collection');
     res.status(401).redirect('/collections');
   }

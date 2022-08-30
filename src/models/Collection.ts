@@ -3,14 +3,21 @@ import { CollectionSchema } from '../types';
 import Flashcard from './Flashcard';
 
 const collectionSchema = new Schema<CollectionSchema>({
-  name: { required: true, type: String },
+  title: { required: true, type: String },
+  contributors: {
+    required: true,
+    type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  },
+  description: { type: String },
   flashcards: {
     required: true,
     type: [{ type: Schema.Types.ObjectId, ref: 'Flashcard' }],
   },
-  author: { required: true, type: Schema.Types.ObjectId, ref: 'User' },
-  createdAt: { required: true, type: Date },
-  lastUpdatedAt: { required: true, type: Date },
+  image: { type: String },
+  likes: { required: true, type: Number },
+  views: { required: true, type: Number },
+  creationDate: { required: true, type: Date },
+  lastUpdateDate: { required: true, type: Date },
 });
 
 collectionSchema.post(

@@ -13,7 +13,7 @@ const flashcardSchema = new Schema<FlashcardSchema, Model<FlashcardSchema>>({
   answerOptions: [answerOptionsSchema],
   image: String,
   author: { required: true, type: Schema.Types.ObjectId, ref: 'User' },
-  collection: {
+  collectionId: {
     required: true,
     type: Schema.Types.ObjectId,
     ref: 'Collection',
@@ -33,12 +33,4 @@ flashcardSchema.post(
   }
 );
 
-//await Collection.findByIdAndUpdate(
-//  collectionId,
-//  {
-//    //@ts-ignore
-//    $push: { flashcards: flashcard._id! },
-//  },
-//  { new: true }
-//);
 export default model<FlashcardSchema>('Flashcard', flashcardSchema);

@@ -8,13 +8,13 @@ const index = async (req: express.Request, res: express.Response) => {
 };
 
 const create = async (req: express.Request, res: express.Response) => {
-  const { name } = req.body;
   const collection = new Collection({
-    name,
-    flashcards: [],
-    author: req.user!._id,
-    createdAt: new Date(),
-    lastUpdatedAt: new Date(),
+    ...req.body,
+    contributors: [req.user!._id],
+    likes: 0,
+    views: 0,
+    creationDate: new Date(),
+    lastUpdateDate: new Date(),
   });
   await collection.save();
   const { _id } = collection;
@@ -36,12 +36,11 @@ const read = async (req: express.Request, res: express.Response) => {
 
 const update = async (req: express.Request, res: express.Response) => {
   const { id } = req.params;
-  const { name } = req.body;
   const collection = await Collection.findByIdAndUpdate(
     id,
     {
-      name,
-      lastUpdatedAt: new Date(),
+      ...req.body,
+      lastUpdateDate: new Date(),
     },
     { new: true }
   );

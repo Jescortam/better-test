@@ -1,11 +1,15 @@
 import { Schema, PassportLocalDocument, PassportLocalModel } from 'mongoose';
 
 export interface CollectionSchema {
-  name: string;
+  title: string;
+  contributors: Schema.Types.ObjectId[];
+  description: string;
   flashcards?: Schema.Types.ObjectId[];
-  author: Schema.Types.ObjectId;
-  createdAt: Date;
-  lastUpdatedAt: Date;
+  image: string;
+  likes: number;
+  views: number;
+  creationDate: Date;
+  lastUpdateDate: Date;
 }
 
 export interface AnswerOptionsSchema {
@@ -19,7 +23,7 @@ export interface FlashcardSchema {
   answer?: string;
   answerOptions?: AnswerOptionsSchema[];
   author: Schema.Types.ObjectId;
-  collection: Schema.Types.ObjectId;
+  collectionId: Schema.Types.ObjectId;
   createdAt: Date;
   lastUpdatedAt: Date;
 }
