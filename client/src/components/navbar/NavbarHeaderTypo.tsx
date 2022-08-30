@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 
 interface props {
@@ -10,8 +11,8 @@ const NavbarHeader = ({ display, flexGrow }: props) => {
     <Typography
       variant="h5"
       noWrap
-      component="a"
-      href="/"
+      component={Link}
+      to={'/'}
       sx={{
         mr: 2,
         display,

@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NavbarPagesMenu from './NavbarPagesMenu';
 
 interface props {
-  pages: String[];
+  pages: { value: string; to: string }[];
   anchorElNav: HTMLElement | null;
   setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }

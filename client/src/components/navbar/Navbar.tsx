@@ -3,20 +3,24 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import NavbarHeaderTypo from './NavbarHeaderTypo';
-import NavbarPagesMenuBox from './NavbarPagesMenuBox';
-import NavbarPageButtons from './NavbarPageButtons';
+import NavbarPagesMenuBox from './pages/NavbarPagesMenuBox';
+import NavbarPageButtons from './pages/NavbarPageButtons';
+import NavbarSearchField from './search/NavbarSearchField';
+import NavbarUserButtons from './user/NavbarUserButtons';
 
-const pages = ['Explore', 'Create Your Own'];
+const pages: { value: string; to: string }[] = [
+  { value: 'Explore', to: '/collections' },
+  { value: 'Create', to: '/collections/new' },
+];
 
 // TODO: If user is logged in, use NavbarUserMenuBox
-// TODO: Implement searchbar, login and signup buttons
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ mb: 2 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <NavbarPagesMenuBox
@@ -27,6 +31,8 @@ const Navbar = () => {
           <NavbarHeaderTypo display={{ xs: 'flex', md: 'none' }} flexGrow={1} />
           <NavbarHeaderTypo display={{ xs: 'none', md: 'flex' }} flexGrow={0} />
           <NavbarPageButtons pages={pages} setAnchorElNav={setAnchorElNav} />
+          <NavbarSearchField />
+          <NavbarUserButtons />
         </Toolbar>
       </Container>
     </AppBar>

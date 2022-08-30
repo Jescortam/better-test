@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 interface props {
-  pages: String[];
+  pages: { value: string; to: string }[];
   anchorElNav: HTMLElement | null;
   handleCloseNavMenu: () => void;
 }
@@ -15,12 +16,14 @@ const NavbarMenu: React.FC<props> = ({
   handleCloseNavMenu,
 }: props) => {
   const renderPages = () => {
-    return pages.map((page) => (
+    return pages.map(({ value, to }) => (
       <MenuItem
-        key={page as React.Key | null | undefined}
+        component={Link}
+        to={to}
+        key={value as React.Key | null | undefined}
         onClick={handleCloseNavMenu}
       >
-        <Typography textAlign="center">{page}</Typography>
+        <Typography textAlign="center">{value}</Typography>
       </MenuItem>
     ));
   };
