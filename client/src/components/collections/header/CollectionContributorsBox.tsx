@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
@@ -7,10 +8,20 @@ interface props {
   numContributorsShown: number;
 }
 
-const CollectionCardContributorsBox = ({
-  contributors,
-  numContributorsShown,
-}: props) => {
+const ContributorsBoxStyles = {
+  display: 'flex',
+};
+
+const ContributorsAvatarStyles = {
+  width: 20,
+  height: 20,
+  backgroundColor: 'green',
+  mr: 0.5,
+};
+
+const CollectionCardContributorsBox: React.FC<props> = (props) => {
+  const { contributors, numContributorsShown } = props;
+
   const renderShortContributorList = (numContributorsShown: number) => {
     if (contributors.length === 1) {
       return contributors[0];
@@ -26,15 +37,8 @@ const CollectionCardContributorsBox = ({
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Avatar
-        sx={{
-          width: 20,
-          height: 20,
-          backgroundColor: 'green',
-          mr: 0.5,
-        }}
-      ></Avatar>
+    <Box sx={ContributorsBoxStyles}>
+      <Avatar sx={ContributorsAvatarStyles}></Avatar>
       <Typography color="text.secondary">
         {renderShortContributorList(numContributorsShown)}
       </Typography>

@@ -1,8 +1,10 @@
+import React from 'react';
+
 interface props {
   children: Date;
 }
 
-const DateString = ({ children }: props) => {
+const DateString: React.FC<props> = ({ children }) => {
   return <>{children.toDateString()}</>;
 };
 

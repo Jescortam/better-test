@@ -1,3 +1,4 @@
+import React from 'react';
 import Divider from '@mui/material/Divider';
 import CollectionHeader from './header/CollectionHeader';
 import CollectionDescription from './body/CollectionDescription';
@@ -9,7 +10,8 @@ interface props {
   descMaxNumChar?: number;
 }
 
-const CollectionDetails = ({ collection, descMaxNumChar }: props) => {
+const CollectionDetails: React.FC<props> = (props) => {
+  const { collection, descMaxNumChar } = props;
   const { description } = collection;
 
   return (

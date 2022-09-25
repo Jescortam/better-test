@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
@@ -14,7 +15,9 @@ interface props {
     | 'warning';
 }
 
-const NavbarUserButton = ({ children, to, color }: props) => {
+const NavbarUserButton: React.FC<props> = (props) => {
+  const { children, to, color } = props;
+
   return (
     <Button component={Link} to={to} variant="contained" color={color}>
       {children}

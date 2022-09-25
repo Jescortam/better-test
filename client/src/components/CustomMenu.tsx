@@ -8,7 +8,9 @@ interface props {
   menuItems: string[];
 }
 
-const CustomMenu = ({ text, menuItems }: props) => {
+const CustomMenu: React.FC<props> = (props) => {
+  const { text, menuItems } = props;
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

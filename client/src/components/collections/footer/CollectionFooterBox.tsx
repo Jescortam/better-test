@@ -1,6 +1,6 @@
+import React from 'react';
 import Box from '@mui/material/Box';
-import CollectionPlayButton from './CollectionPlayButton';
-import CollectionPracticeButton from './CollectionPracticeButton';
+import CollectionActivityButton from './CollectionActivityButton';
 import CollectionLikeButton from './CollectionLikeButton';
 import CollectionViewsBox from './CollectionViewsBox';
 import Collection from '../../../interfaces/Collection';
@@ -9,24 +9,42 @@ interface props {
   collection: Collection;
 }
 
-const CollectionFooterBox = ({ collection }: props) => {
-  const { _id, likes, views } = collection;
+const CollectionFooterBoxStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  mt: 2,
+};
+
+const LikesAndViewsBoxStyles = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const CollectionFooterBox: React.FC<props> = (props) => {
+  const {
+    collection: { _id, likes, views },
+  } = props;
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        mt: 2,
-      }}
-    >
+    <Box sx={CollectionFooterBoxStyles}>
       <Box>
-        <CollectionPlayButton id={_id} />
-        <CollectionPracticeButton id={_id} />
+        <CollectionActivityButton
+          id={_id}
+          variant="contained"
+          route="play"
+          label="Play"
+        />
+        <CollectionActivityButton
+          id={_id}
+          variant="outlined"
+          route="practice"
+          label="Practice"
+        />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <CollectionLikeButton likes={likes} />
-        <CollectionViewsBox views={views} />
+      <Box sx={LikesAndViewsBoxStyles}>
+        <CollectionLikeButton numLikes={likes} />
+        <CollectionViewsBox numViews={views} />
       </Box>
     </Box>
   );

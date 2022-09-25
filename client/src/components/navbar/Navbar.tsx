@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -13,8 +13,7 @@ const pages: { value: string; to: string }[] = [
   { value: 'Create', to: '/collections/new' },
 ];
 
-// TODO: If user is logged in, use NavbarUserMenuBox
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );

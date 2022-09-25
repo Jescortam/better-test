@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -10,11 +10,13 @@ interface props {
   handleCloseNavMenu: () => void;
 }
 
-const NavbarMenu: React.FC<props> = ({
-  pages,
-  anchorElNav,
-  handleCloseNavMenu,
-}: props) => {
+const NavbarMenuStyles = {
+  display: { xs: 'block', md: 'none' },
+};
+
+const NavbarMenu: React.FC<props> = (props) => {
+  const { pages, anchorElNav, handleCloseNavMenu } = props;
+
   const renderPages = () => {
     return pages.map(({ value, to }) => (
       <MenuItem
@@ -43,9 +45,7 @@ const NavbarMenu: React.FC<props> = ({
       }}
       open={Boolean(anchorElNav)}
       onClose={handleCloseNavMenu}
-      sx={{
-        display: { xs: 'block', md: 'none' },
-      }}
+      sx={NavbarMenuStyles}
     >
       {renderPages()}
     </Menu>

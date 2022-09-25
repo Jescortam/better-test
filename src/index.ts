@@ -6,7 +6,6 @@ import flash from 'connect-flash';
 import MongooseConnect from './services/mongoose';
 import sessionConfig from './services/expressSession';
 import { setLocals, errorHandler } from './middleware';
-import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
 import collectionRoutes from './routes/collections';
 import flashcardRoutes from './routes/flashcards';
@@ -31,7 +30,6 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(setLocals);
 
-app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/collections', collectionRoutes);
 app.use('/api/collections/:collectionId/flashcards', flashcardRoutes);

@@ -1,3 +1,4 @@
+import React from 'react';
 import Typography from '@mui/material/Typography';
 
 interface props {
@@ -5,7 +6,9 @@ interface props {
   maxNumCharacters?: number;
 }
 
-const CollectionDescription = ({ description, maxNumCharacters }: props) => {
+const CollectionDescription: React.FC<props> = (props) => {
+  const { description, maxNumCharacters } = props;
+
   const sliceDescription = () => {
     if (sliceNotNeeded()) {
       return description;

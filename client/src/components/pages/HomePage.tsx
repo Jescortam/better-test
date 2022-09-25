@@ -1,8 +1,9 @@
+import React from 'react';
 import Grid from '@mui/material/Grid';
-import HomePageButton from './HomePageButton';
-import HomePageContent from './HomePageContent';
+import HomePageButton from '../home/HomePageButton';
+import HomePageContent from '../home/HomePageContent';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <Grid
       container

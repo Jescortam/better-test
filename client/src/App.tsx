@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
-import HomePage from './components/home/HomePage';
+import HomePage from './components/pages/HomePage';
+import SignupPage from './components/pages/SignupPage';
 import CollectionIndexPage from './components/pages/CollectionIndexPage';
 import CollectionShowPage from './components/pages/CollectionShowPage';
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />
+          <Route path="signup" element={<SignupPage />} />
           <Route path="collections">
             <Route index element={<CollectionIndexPage />} />
             <Route path=":collectionId" element={<CollectionShowPage />} />

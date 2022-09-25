@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 
@@ -17,7 +18,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavbarSearchInputBase = () => {
+const NavbarSearchInputBase: React.FC = () => {
   return (
     <StyledInputBase
       placeholder="Search…"

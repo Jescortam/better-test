@@ -1,3 +1,4 @@
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,11 +8,23 @@ interface props {
   setAnchorElUser: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-const NavbarUserMenu = ({ anchorElUser, setAnchorElUser }: props) => {
+const NavbarUserMenu: React.FC<props> = (props) => {
+  const { anchorElUser, setAnchorElUser } = props;
+
   const settings = ['Account', 'Logout'];
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const renderSettings = () => {
+    return settings.map((setting) => {
+      return (
+        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+          <Typography textAlign="center">{setting}</Typography>
+        </MenuItem>
+      );
+    });
   };
 
   return (
@@ -31,11 +44,7 @@ const NavbarUserMenu = ({ anchorElUser, setAnchorElUser }: props) => {
       open={Boolean(anchorElUser)}
       onClose={handleCloseUserMenu}
     >
-      {settings.map((setting) => (
-        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-          <Typography textAlign="center">{setting}</Typography>
-        </MenuItem>
-      ))}
+      {renderSettings()}
     </Menu>
   );
 };

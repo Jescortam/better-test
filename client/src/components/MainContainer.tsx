@@ -5,12 +5,13 @@ interface props {
   children: React.ReactNode;
 }
 
-const MainContainer = ({ children }: props) => {
-  return (
-    <Container sx={{ width: { xs: '100%', sm: '80%', md: '60%' }, mb: 5 }}>
-      {children}
-    </Container>
-  );
+const MainContainerStyles = {
+  width: { xs: '100%', sm: '80%', md: '60%' },
+  mb: 5,
+};
+
+const MainContainer: React.FC<props> = ({ children }) => {
+  return <Container sx={MainContainerStyles}>{children}</Container>;
 };
 
 export default MainContainer;

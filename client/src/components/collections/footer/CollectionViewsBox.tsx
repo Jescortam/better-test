@@ -1,12 +1,18 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 
 interface props {
-  views: number;
+  numViews: number;
 }
 
-const CollectionViewsBox = ({ views: numViews }: props) => {
+const CollectionViewsBoxStyles = {
+  mx: 1.5,
+  fontSize: 14,
+};
+
+const CollectionViewsBox: React.FC<props> = ({ numViews }) => {
   return (
-    <Box mx={1.5} fontSize={14}>
+    <Box sx={CollectionViewsBoxStyles}>
       {numViews} {numViews === 1 ? 'view' : 'views'}
     </Box>
   );

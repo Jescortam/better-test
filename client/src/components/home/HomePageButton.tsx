@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
@@ -14,7 +15,14 @@ interface props {
     | 'warning';
 }
 
-const HomePageButton = ({ children, to, color = 'primary' }: props) => {
+const HomePageButtonStyles = {
+  width: { xs: 200, sm: '100%' },
+  textAlign: 'center',
+};
+
+const HomePageButton: React.FC<props> = (props) => {
+  const { children, to, color = 'primary' } = props;
+
   return (
     <Button
       component={Link}
@@ -22,7 +30,7 @@ const HomePageButton = ({ children, to, color = 'primary' }: props) => {
       variant="contained"
       color={color}
       size="large"
-      sx={{ width: { xs: 200, sm: '100%' }, textAlign: 'center' }}
+      sx={HomePageButtonStyles}
     >
       {children}
     </Button>

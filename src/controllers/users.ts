@@ -7,8 +7,14 @@ const signup = async (
   next: express.NextFunction
 ) => {
   try {
-    const { username, email, password } = req.body;
-    const user = new User({ username, email, createdAt: new Date() });
+    const { firstName, lastName, birthDate, email, password } = req.body;
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      birthDate,
+      createdAt: new Date(),
+    });
     const registUser = await User.register(user, password);
     req.login(registUser, (err) => {
       if (err) return next(err);

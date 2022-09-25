@@ -4,17 +4,24 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 interface props {
-  likes: number;
+  numLikes: number;
 }
 
-const CollectionLikeButton = ({ likes }: props) => {
+const ButtonStyles = {
+  pt: 1,
+  display: 'flex',
+  alignItems: 'start',
+  width: 80,
+};
+
+const CollectionLikeButton: React.FC<props> = ({ numLikes }) => {
   const [variant, setVariant] = React.useState<'contained' | 'outlined'>(
     'outlined'
   );
 
-  const handleOnClick = (e: React.ChangeEvent<any>) => {
-    e.stopPropagation();
-    e.preventDefault();
+  const handleOnClick = (event: React.ChangeEvent<any>) => {
+    event.stopPropagation();
+    event.preventDefault();
     variant === 'outlined' ? setVariant('contained') : setVariant('outlined');
   };
 
@@ -24,17 +31,12 @@ const CollectionLikeButton = ({ likes }: props) => {
 
   return (
     <Button
-      sx={{
-        pt: 1,
-        display: 'flex',
-        alignItems: 'start',
-        width: 80,
-      }}
+      sx={ButtonStyles}
       onClick={handleOnClick}
       variant={variant}
       startIcon={renderIcon()}
     >
-      {likes}
+      {numLikes}
     </Button>
   );
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -11,19 +12,19 @@ import collections from '../../dbPlaceholder/collections';
 
 const collection = collections[0];
 
-const CollectionShowPage = () => {
+const FlashcardSectionStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+
+const CollectionShowPage: React.FC = () => {
   return (
     <MainContainer>
       <BackButton dest={'/collections'} />
       <CollectionDetails collection={collection} />
       <Divider variant="middle" sx={{ my: 4 }} />
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <Box sx={FlashcardSectionStyles}>
         <PageSubtitle>Flashcards</PageSubtitle>
         <Box>
           <CustomMenu text={'Sort By'} menuItems={['Author', 'Upload Date']} />

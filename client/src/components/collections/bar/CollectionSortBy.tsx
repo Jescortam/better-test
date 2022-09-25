@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 
-const CollectionsSortBy = () => {
+const CollectionsSortBy: React.FC = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

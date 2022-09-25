@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -11,7 +12,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const NavbarSearchIconWrapper = () => {
+const NavbarSearchIconWrapper: React.FC = () => {
   return (
     <SearchIconWrapper>
       <SearchIcon />

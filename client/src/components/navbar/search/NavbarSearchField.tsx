@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import NavbarSearchIconWrapper from './NavbarSearchIconWrapper';
 import NavbarSearchInputBase from './NavbarSearchInputBase';
@@ -15,7 +16,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const NavbarSearchField = () => {
+const NavbarSearchField: React.FC = () => {
   return (
     <Search>
       <NavbarSearchIconWrapper />

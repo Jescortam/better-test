@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
@@ -8,8 +9,12 @@ interface props {
   flashcard: Flashcard;
 }
 
-const FlashcardCard = ({ flashcard }: props) => {
-  const { question, answer, author, creationDate } = flashcard;
+const CardContentDetailsStyles = { display: 'flex', justifyContent: 'end' };
+
+const FlashcardCard: React.FC<props> = (props) => {
+  const {
+    flashcard: { question, answer, author, creationDate },
+  } = props;
 
   return (
     <Card>
@@ -18,7 +23,7 @@ const FlashcardCard = ({ flashcard }: props) => {
         <Box my={1} fontWeight={'bold'}>
           {answer}
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+        <Box sx={CardContentDetailsStyles}>
           <Box mx={1}>
             <DateString>{creationDate}</DateString>
           </Box>

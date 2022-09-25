@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import CollectionTitle from './CollectionTitle';
 import CollectionImage from './CollectionImage';
@@ -9,16 +10,19 @@ interface props {
   collection: Collection;
 }
 
-const CollectionCardContent = ({ collection }: props) => {
-  const { image, title, contributors, creationDate } = collection;
+const CollectionCardContentStyles = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
+const CollectionCardContent: React.FC<props> = (props) => {
+  const {
+    collection: { image, title, contributors, creationDate },
+  } = props;
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
+    <Box sx={CollectionCardContentStyles}>
       <Box sx={{ mr: 1 }}>
         <CollectionContributorsBox
           contributors={contributors}

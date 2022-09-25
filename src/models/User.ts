@@ -4,8 +4,10 @@ import { UserSchema, UserModelType } from '../types';
 import Collection from './Collection';
 
 const userSchema = new Schema<UserSchema, UserModelType>({
-  username: { required: true, type: String },
+  firstName: { required: true, type: String },
+  lastName: { required: true, type: String },
   email: { required: true, type: String },
+  birthDate: { required: true, type: Date },
   ownCollections: {
     required: true,
     type: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],

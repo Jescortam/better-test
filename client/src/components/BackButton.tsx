@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,7 +8,7 @@ interface props {
   dest: string;
 }
 
-const BackButton = ({ dest }: props) => {
+const BackButton: React.FC<props> = ({ dest }) => {
   return (
     <Button sx={{ px: 0 }} size="medium" component={Link} to={dest}>
       <ArrowBackIosIcon fontSize="small" />

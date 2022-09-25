@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,7 +8,21 @@ interface props {
   setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-const NavbarPageButtons = ({ pages, setAnchorElNav }: props) => {
+const NavbarPageButtonBoxStyles = {
+  flexGrow: 1,
+  display: { xs: 'none', md: 'flex' },
+};
+
+const NavbarPageButtonStyles = {
+  my: 2,
+  mx: 0.5,
+  color: 'white',
+  display: 'block',
+};
+
+const NavbarPageButtons: React.FC<props> = (props) => {
+  const { pages, setAnchorElNav } = props;
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -19,18 +34,14 @@ const NavbarPageButtons = ({ pages, setAnchorElNav }: props) => {
         to={to}
         key={value as React.Key | null | undefined}
         onClick={handleCloseNavMenu}
-        sx={{ my: 2, mx: 0.5, color: 'white', display: 'block' }}
+        sx={NavbarPageButtonStyles}
       >
         {value}
       </Button>
     ));
   };
 
-  return (
-    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-      {renderButtons()}
-    </Box>
-  );
+  return <Box sx={NavbarPageButtonBoxStyles}>{renderButtons()}</Box>;
 };
 
 export default NavbarPageButtons;
