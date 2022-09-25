@@ -29,10 +29,8 @@ export interface FlashcardSchema {
 }
 
 export interface UserSchema extends PassportLocalDocument {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
-  birthDate: Date;
   ownCollections: CollectionSchema[];
   likedCollections: CollectionSchema[];
   createdAt: Date;

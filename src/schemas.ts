@@ -20,9 +20,7 @@ export const collectionJoiSchema = Joi.object({
 });
 
 export const userJoiSchema = Joi.object({
-  firstName: Joi.string().required().trim(),
-  lastName: Joi.string().required().trim(),
+  username: Joi.string().required().trim(),
   email: Joi.string().email().trim(),
-  birthDate: Joi.date().required(),
   password: Joi.string().trim(),
 });

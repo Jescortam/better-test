@@ -7,12 +7,10 @@ const signup = async (
   next: express.NextFunction
 ) => {
   try {
-    const { firstName, lastName, birthDate, email, password } = req.body;
+    const { username, email, password } = req.body;
     const user = new User({
-      firstName,
-      lastName,
+      username,
       email,
-      birthDate,
       createdAt: new Date(),
     });
     const registUser = await User.register(user, password);
