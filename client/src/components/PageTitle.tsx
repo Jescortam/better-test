@@ -7,8 +7,7 @@ interface props {
 
 const PageTitleStyles = {
   fontWeight: 600,
-  mt: 4,
-  mb: 1,
+  my: 1,
 };
 
 const PageTitle: React.FC<props> = ({ children }) => {

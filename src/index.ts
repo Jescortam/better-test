@@ -30,7 +30,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(setLocals);
 
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes);
 app.use('/api/collections', collectionRoutes);
 app.use('/api/collections/:collectionId/flashcards', flashcardRoutes);
 app.use(miscRoutes);

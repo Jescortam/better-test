@@ -1,30 +1,25 @@
 import { SignupFormValues } from '../interfaces/Signup';
 
+interface Errors {
+  [key: string]: any;
+}
+
 export const validateSignupForm = (values: SignupFormValues) => {
-  let errors: { [key: string]: any } = {};
+  let errors: Errors = {};
   const requiredFields = ['username', 'email', 'password', 'confirmPassword'];
 
-  errors = Object.assign(
-    errors,
-    validateRequiredFields(requiredFields, values)
-  );
-
-  errors.email = validateEmail(values.email);
-
-  errors.confirmPassword = validatePassword(
-    values.password,
-    values.confirmPassword
-  );
+  errors = validateRequiredFields(errors, requiredFields, values);
+  errors = validateEmail(errors, values.email);
+  errors = validatePassword(errors, values.password, values.confirmPassword);
 
   return errors;
 };
 
 const validateRequiredFields = (
+  errors: Errors,
   requiredFields: string[],
   values: SignupFormValues
 ) => {
-  const errors: { [key: string]: any } = {};
-
   requiredFields.forEach((field: string) => {
     if (!values[field as keyof SignupFormValues]) {
       errors[field] = 'Required';
@@ -34,17 +29,21 @@ const validateRequiredFields = (
   return errors;
 };
 
-const validateEmail = (email: string) => {
+const validateEmail = (errors: Errors, email: string) => {
   if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-    return 'Invalid email address';
+    errors.email = 'Invalid email address';
   }
-  return;
+  return errors;
 };
 
-const validatePassword = (password: string, confirmPassword: string) => {
+const validatePassword = (
+  errors: Errors,
+  password: string,
+  confirmPassword: string
+) => {
   if (password !== confirmPassword) {
-    return 'The password is not the same';
+    errors.confirmPassword = 'The password is not the same';
   }
 
-  return;
+  return errors;
 };

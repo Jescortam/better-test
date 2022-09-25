@@ -17,7 +17,7 @@ router.post(
   '/login',
   validateBody(userJoiSchema),
   passport.authenticate('local', {
-    failureRedirect: '/auth/login',
+    failureRedirect: '/login',
     failureFlash: true,
     successFlash: true,
   }),

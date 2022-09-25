@@ -7,7 +7,7 @@ interface props {
 
 const MainContainerStyles = {
   width: { xs: '100%', sm: '80%', md: '60%' },
-  mb: 5,
+  my: 4,
 };
 
 const MainContainer: React.FC<props> = ({ children }) => {
