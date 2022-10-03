@@ -1,20 +1,21 @@
-import { WrappedFieldProps } from 'redux-form';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { FieldProps } from '../../interfaces/Form';
+import TextField from '@mui/material/TextField';
 
-const SignupTextField: React.FC<
-  WrappedFieldProps & TextFieldProps & { isRequired: boolean }
-> = ({ input, label, isRequired, meta: { touched, error }, ...custom }) => {
+const SignupTextField: React.FC<FieldProps> = ({
+  name,
+  label,
+  type,
+  isRequired,
+}) => {
   return (
     <TextField
+      name={name}
       label={label}
-      error={touched && error}
-      helperText={touched && error}
       margin="normal"
       variant="outlined"
       fullWidth
       required={isRequired}
-      {...input}
-      {...custom}
+      type={type}
     />
   );
 };

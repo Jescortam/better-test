@@ -5,7 +5,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import MongooseConnect from './services/mongoose';
 import sessionConfig from './services/expressSession';
-import { setLocals, errorHandler } from './middleware';
+import { errorHandler } from './middleware';
 import userRoutes from './routes/users';
 import collectionRoutes from './routes/collections';
 import flashcardRoutes from './routes/flashcards';
@@ -27,8 +27,6 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-app.use(setLocals);
 
 app.use('/api', userRoutes);
 app.use('/api/collections', collectionRoutes);

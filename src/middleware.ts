@@ -90,17 +90,6 @@ export const validateBody = (schema: Joi.ObjectSchema) => {
   };
 };
 
-export const setLocals = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash('success');
-  res.locals.failure = req.flash('failure');
-  next();
-};
-
 export const errorHandler: express.ErrorRequestHandler = (
   err: any,
   req: express.Request,

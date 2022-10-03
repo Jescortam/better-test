@@ -1,10 +1,10 @@
-import { reduxForm, Field } from 'redux-form';
+import _ from 'lodash';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SignupTextField from './SignupTextField';
 import { validateSignupForm } from '../../helpers/validators';
-import { SignupFormProps } from '../../interfaces/Signup';
+import { SignupFormValues, SignupFormProps } from '../../interfaces/Signup';
 import { FieldProps } from '../../interfaces/Form';
 
 const fields: FieldProps[] = [
@@ -44,18 +44,28 @@ const SignupFormButtonBoxStyles = {
   justifyContent: 'end',
 };
 
-const onSubmit = (values: Object) => {
-  console.log(values);
+const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
+  const fields = { username: '', email: '', password: '', confirmPassword: '' };
+
+  Object.keys(fields).forEach((field) => {
+    fields[field as keyof typeof fields] = (
+      (event.target as HTMLFormElement).elements.namedItem(
+        field
+      ) as HTMLInputElement
+    ).value;
+  });
+
+  console.log(fields);
 };
 
-const SignupForm: React.FC<SignupFormProps> = (props) => {
-  const { handleSubmit } = props;
-
+const SignupForm: React.FC = () => {
   const renderFields = (fields: FieldProps[]) => {
     return fields.map((field) => {
       return (
         <div>
-          <Field key={field.name} component={SignupTextField} {...field} />
+          <SignupTextField key={field.name} {...field} />
         </div>
       );
     });
@@ -66,7 +76,7 @@ const SignupForm: React.FC<SignupFormProps> = (props) => {
       <Typography variant="h5" component="h1">
         Sign up now
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         {renderFields(fields)}
         <Box sx={SignupFormButtonBoxStyles}>
           <Button type="submit" variant="contained">
@@ -78,8 +88,4 @@ const SignupForm: React.FC<SignupFormProps> = (props) => {
   );
 };
 
-export default reduxForm({
-  form: 'signup',
-  onSubmit,
-  validate: validateSignupForm,
-})(SignupForm);
+export default SignupForm;
